@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0.1% Genius Mode Founder Workspace</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            950: '#0c0a0f',
+                        },
+                        accent: {
+                            teal: '#0ea5e9',
+                            rose: '#f43f5e',
+                            violet: '#a855f7',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #09090b 0%, #0c0a0f 50%, #120e16 100%);
+        }
+        .glass-panel {
+            background: rgba(15, 12, 22, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+        .glass-card {
+            background: rgba(20, 16, 28, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+            transform: translateY(-2px);
+        }
+        .editable-field {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 1px;
+        }
+        .editable-field:hover {
+            border-bottom-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.05);
+            color: #ffffff;
+        }
+        .editable-field:focus {
+            outline: none;
+            border-bottom-style: solid;
+            border-bottom-color: #a855f7;
+            background: rgba(139, 92, 246, 0.15);
+            color: #ffffff;
+            cursor: text;
+        }
+        /* Hide scrollbars but keep functionality */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.5);
+        }
+        /* Custom capacity filter animations */
+        .capacity-active {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-zinc-100 min-h-screen pb-12 overflow-x-hidden antialiased">
+
+    <!-- Global Nav/Header -->
+    <header class="border-b border-brand-950/40 bg-zinc-950/80 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-accent-violet flex items-center justify-center shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">0.1% Genius Workspace</h1>
+                    <p class="text-xs text-brand-500 font-mono tracking-wider uppercase">High-Velocity Startup Accelerator</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <div class="hidden md:flex items-center space-x-2 bg-zinc-900/60 border border-zinc-800 rounded-full px-3.5 py-1.5 text-xs text-zinc-400">
+                    <span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
+                    <span>System Active: Phase 1 & 2 Blueprint</span>
+                </div>
+                <button onclick="appState.exportToNotion()" class="bg-gradient-to-r from-brand-600 to-accent-violet hover:from-brand-500 hover:to-accent-violet/90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-brand-600/20 hover:shadow-brand-600/30 flex items-center space-x-2">
+                    <i class="fa-solid fa-file-export"></i>
+                    <span>Export to Notion</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
+
+        <!-- Welcome banner -->
+        <div class="p-6 md:p-8 rounded-2xl border border-brand-500/15 bg-gradient-to-r from-zinc-950 to-brand-950/40 relative overflow-hidden shadow-xl">
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-500/10 border border-brand-500/30 text-brand-100 mb-3 font-mono">
+                        <i class="fa-solid fa-microchip mr-1.5 text-accent-teal"></i> DEVILS ADVOCATE / RED TEAM INTEGRATED
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white mb-2">The Multi-Cultural Founder $10k MRR Blueprint</h2>
+                    <p class="text-zinc-400 max-w-2xl text-sm leading-relaxed">
+                        An interactive architecture designed to leverage the team's combined networks <span class="text-white font-medium">(Cape Verdean, African American, Latina, West Indian, South Asian)</span> to conquer organic sign-ups and forge high-leverage partnerships.
+                    </p>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl min-w-[200px] text-center">
+                    <p class="text-xs text-zinc-500 uppercase font-mono tracking-wider">Target Objective</p>
+                    <p class="text-3xl font-black text-white mt-1" id="mrr-target-value" contenteditable="true">$10,000</p>
+                    <p class="text-[11px] text-accent-emerald font-medium mt-1"><i class="fa-solid fa-chart-line mr-1"></i> MRR in 120 Days</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Founders Dynamic Grid & Capacity Toggles -->
+        <section class="space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-users text-brand-500"></i>
+                        <span>Founder Capacity & Alignment Desk</span>
+                    </h3>
+                    <p class="text-xs text-zinc-400">Click capacity tokens inside any card to sync availability live. Select a filter to view customized workflows.</p>
+                </div>
+                <!-- Global Filter Switches -->
+                <div class="flex flex-wrap gap-2 bg-zinc-950/60 p-1 rounded-xl border border-zinc-800/80 self-start">
+                    <button onclick="appState.setGlobalFilter('all')" id="filter-btn-all" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-brand-600 text-white">
+                        Show All
+                    </button>
+                    <button onclick="appState.setGlobalFilter('15min')" id="filter-btn-15min" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-zinc-400 hover:text-white flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span> 15-Min Workflows
+                    </button>
+                    <button onclick="appState.setGlobalFilter('1hr')" id="filter-btn-1hr" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-zinc-400 hover:text-white flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent-teal"></span> 1-Hour Sprints
+                    </button>
+                    <button onclick="appState.setGlobalFilter('deep')" id="filter-btn-deep" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-zinc-400 hover:text-white flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent-rose"></span> Deep Work
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="founders-grid">
+                <!-- Founders dynamically injected here -->
+            </div>
+        </section>
+
+        <!-- Dynamic Tasks & Phase Runway -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Runway Navigation and Progress -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="glass-panel rounded-2xl p-6 space-y-6">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-plane-departure text-brand-500"></i>
+                        <span>120-Day Runway Timeline</span>
+                    </h3>
+
+                    <div class="space-y-4" id="phases-nav-container">
+                        <!-- Phases dynamically injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Tasks Ledger -->
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-zinc-900">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-brand-500" id="task-phase-tag">ACTIVE SELECTION: PHASE 1</span>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2 mt-0.5">
+                                <i class="fa-solid fa-list-check text-brand-500"></i>
+                                <span id="task-phase-title">Operational Bedrock Checklist</span>
+                            </h3>
+                        </div>
+                        <button onclick="appState.createNewTask()" class="text-xs bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-3 py-1.5 rounded-lg text-zinc-300 transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus text-brand-500"></i> Add Custom Task
+                        </button>
+                    </div>
+
+                    <!-- Tasks Container -->
+                    <div class="space-y-3" id="tasks-ledger-container">
+                        <!-- Tasks dynamically injected here -->
+                    </div>
+                </div>
+
+                <div class="mt-8 p-3.5 bg-zinc-950/60 rounded-xl border border-zinc-900 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400">
+                            <i class="fa-solid fa-gauge text-xs"></i>
+                        </div>
+                        <p class="text-[11px] text-zinc-400 leading-snug">
+                            Check tasks off to update the active phase runway completion tracker instantly.
+                        </p>
+                    </div>
+                    <span class="text-xs font-mono text-zinc-500" id="checked-fraction">0 / 0 Tasks Completed</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Section: Cultural Arbitrage Matrix -->
+        <section class="space-y-4">
+            <div>
+                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-earth-americas text-accent-teal"></i>
+                    <span>Cultural Arbitrage & Growth Engines</span>
+                </h3>
+                <p class="text-xs text-zinc-400">Leveraging our multicultural founding capital into direct distribution hacks and strategic partnerships.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="arbitrage-container">
+                <!-- Arbitrage cards dynamically injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- App State & Logic -->
+    <script>
+        const appState = {
+            currentFilter: 'all',
+            activePhase: 1,
+
+            data: {
+                mrrTarget: '$10,000',
+                founders: [
+                    { id: 'beth', name: 'Beth', role: 'Marketing & Operations', capacity: '15min', statusColor: 'emerald', tags: ['West Indian Network', 'Brand Identity'] },
+                    { id: 'asa', name: 'Asa', role: 'Platform Engineering', capacity: '1hr', statusColor: 'teal', tags: ['Cape Verdean Diaspora', 'Backend Architecture'] },
+                    { id: 'anjali', name: 'Anjali', role: 'Product Design & Growth', capacity: 'deep', statusColor: 'rose', tags: ['South Asian Circles', 'UX Strategist'] },
+                    { id: 'latoya', name: 'Latoya', role: 'BD & Strategic Alliances', capacity: '15min', statusColor: 'emerald', tags: ['African-American Corp', 'Global Partnerships'] },
+                    { id: 'valentina', name: 'Valentina', role: 'Compliance & Finance', capacity: '1hr', statusColor: 'teal', tags: ['Latina Leaders Alliance', 'Venture Compliance'] }
+                ],
+                phases: [
+                    { id: 1, title: 'Operational Bedrock', days: 'DAYS 1-30', color: 'brand', tasks: [
+                        { id: 'task-1', name: 'Finalize product MVP specs', completed: false },
+                        { id: 'task-2', name: 'Set up legal entity & compliance framework', completed: false },
+                        { id: 'task-3', name: 'Establish founder equity split', completed: false }
+                    ]},
+                    { id: 2, title: 'Audience Smoke-Tests', days: 'DAYS 31-60', color: 'teal', tasks: [
+                        { id: 'task-4', name: 'Conduct 50 founder interviews', completed: false },
+                        { id: 'task-5', name: 'Launch waitlist landing page', completed: false },
+                        { id: 'task-6', name: 'Build first network partnership agreement', completed: false }
+                    ]},
+                    { id: 3, title: 'B2B Alliances & Launch', days: 'DAYS 61-90', color: 'violet', tasks: [
+                        { id: 'task-7', name: 'Secure 3 chamber of commerce partnerships', completed: false },
+                        { id: 'task-8', name: 'Launch public beta version', completed: false },
+                        { id: 'task-9', name: 'Execute first PR trend-jacking campaign', completed: false }
+                    ]},
+                    { id: 4, title: 'The MRR Scale Loop', days: 'DAYS 91-120', color: 'rose', tasks: [
+                        { id: 'task-10', name: 'Hit 1,000+ active users', completed: false },
+                        { id: 'task-11', name: 'Achieve $10k MRR milestone', completed: false },
+                        { id: 'task-12', name: 'Document growth playbook for seed pitch', completed: false }
+                    ]}
+                ],
+                arbitrage: [
+                    { id: 'arb-1', title: 'NGO Donation Flywheel', emoji: '🤝', desc: 'Form formal alliances with minority-led, Cape Verdean, Latina, West Indian, and South Asian chambers of commerce. Offer a modular payout/donation share from user referrals. They receive organic recurring funding; we inherit immediate trusted networks.', yield: '1,500+ Signups' },
+                    { id: 'arb-2', title: 'The PR Blunder Hijack', emoji: '📢', desc: 'Monitor public blunders made by legacy tech platforms failing minority communities. Launch ultra-targeted, hyper-authentic campaigns addressing those exact gaps. Bring displaced users into our early waitlist within 72 hours of news breaks.', yield: 'Instant Viral Traction' },
+                    { id: 'arb-3', title: 'The Academic Troika', emoji: '🎓', desc: 'Integrate our scaling questions into master-level CS and business capstone courses at minority-serving colleges. Turn our operational roadmap into real-world academic projects. We inherit premium research and development energy for zero structural capital.', yield: 'Free R&D Leverage' }
+                ]
+            },
+
+            // Initialize app
+            init() {
+                this.loadFromStorage();
+                this.render();
+                this.attachEventListeners();
+            },
+
+            // Load data from localStorage
+            loadFromStorage() {
+                const saved = localStorage.getItem('appState');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    this.data = { ...this.data, ...parsed };
+                }
+            },
+
+            // Save to localStorage
+            save() {
+                localStorage.setItem('appState', JSON.stringify(this.data));
+                this.render();
+            },
+
+            // Render entire UI
+            render() {
+                this.renderFounders();
+                this.renderPhases();
+                this.renderTasks();
+                this.renderArbitrage();
+            },
+
+            // Render founder cards
+            renderFounders() {
+                const grid = document.getElementById('founders-grid');
+                grid.innerHTML = '';
+
+                this.data.founders.forEach(founder => {
+                    const isVisible = this.currentFilter === 'all' || this.currentFilter === founder.capacity;
+                    if (!isVisible) return;
+
+                    const colors = { emerald: '#10b981', teal: '#0ea5e9', rose: '#f43f5e' };
+                    const card = document.createElement('div');
+                    card.className = 'glass-card rounded-2xl p-5 flex flex-col justify-between space-y-4 relative overflow-hidden fade-in';
+                    card.innerHTML = `
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono font-bold text-zinc-500">FOUNDER ${String(this.data.founders.indexOf(founder) + 1).padStart(2, '0')}</span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-${founder.statusColor} ring-4 ring-${founder.statusColor}-500/10"></span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white editable-field" contenteditable="true" onblur="appState.updateFounderField('${founder.id}', 'name', this.innerText)">${founder.name}</h4>
+                                <p class="text-xs text-brand-500 font-medium mt-0.5 editable-field" contenteditable="true" onblur="appState.updateFounderField('${founder.id}', 'role', this.innerText)">${founder.role}</p>
+                            </div>
+                            <div class="flex flex-wrap gap-1 mt-2">
+                                ${founder.tags.map((tag, idx) => `
+                                    <span class="text-[10px] bg-brand-500/10 text-brand-100 px-2 py-0.5 rounded-full border border-brand-500/20 font-medium editable-field" contenteditable="true" onblur="appState.updateFounderTag('${founder.id}', ${idx}, this.innerText)">${tag}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="space-y-3 pt-4 border-t border-zinc-900">
+                            <p class="text-[11px] text-zinc-400 uppercase font-mono tracking-wider">Today's Capacity</p>
+                            <div class="grid grid-cols-3 gap-1 bg-zinc-950 p-1 rounded-lg border border-zinc-900 text-center text-[10px] font-bold">
+                                <button onclick="appState.setFounderCapacity('${founder.id}', '15min')" class="py-1 rounded transition-all ${founder.capacity === '15min' ? 'bg-accent-emerald text-zinc-950 font-extrabold' : 'text-zinc-400 hover:text-zinc-100'}">15m</button>
+                                <button onclick="appState.setFounderCapacity('${founder.id}', '1hr')" class="py-1 rounded transition-all ${founder.capacity === '1hr' ? 'bg-accent-teal text-zinc-950 font-extrabold' : 'text-zinc-400 hover:text-zinc-100'}">1h</button>
+                                <button onclick="appState.setFounderCapacity('${founder.id}', 'deep')" class="py-1 rounded transition-all ${founder.capacity === 'deep' ? 'bg-accent-rose text-zinc-950 font-extrabold' : 'text-zinc-400 hover:text-zinc-100'}">Deep</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            },
+
+            // Render phase navigation
+            renderPhases() {
+                const container = document.getElementById('phases-nav-container');
+                container.innerHTML = '';
+
+                this.data.phases.forEach(phase => {
+                    const totalTasks = phase.tasks.length;
+                    const completedTasks = phase.tasks.filter(t => t.completed).length;
+                    const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+                    const isActive = this.activePhase === phase.id;
+                    const block = document.createElement('div');
+                    block.className = `p-4 rounded-xl border cursor-pointer transition-all duration-200 ${isActive ? 'border-brand-500 bg-brand-950/20' : 'border-zinc-900 bg-zinc-950/40 hover:border-zinc-800'}`;
+                    block.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold ${isActive ? 'text-brand-100' : 'text-zinc-400'}">${phase.days}</span>
+                            <span class="text-[10px] ${isActive ? 'bg-brand-500/20 text-brand-100' : 'bg-zinc-800 text-zinc-400'} px-2 py-0.5 rounded font-mono">${percentage}%</span>
+                        </div>
+                        <h4 class="text-sm font-bold ${isActive ? 'text-white' : 'text-zinc-300'} editable-field" contenteditable="true" onblur="appState.updatePhaseTitle(${phase.id}, this.innerText)">${phase.title}</h4>
+                        <div class="w-full bg-zinc-900 rounded-full h-1.5 mt-2.5">
+                            <div class="bg-gradient-to-r from-brand-500 to-accent-violet h-1.5 rounded-full transition-all" style="width: ${percentage}%"></div>
+                        </div>
+                    `;
+                    block.onclick = () => this.selectPhase(phase.id);
+                    container.appendChild(block);
+                });
+            },
+
+            // Render tasks for active phase
+            renderTasks() {
+                const phase = this.data.phases.find(p => p.id === this.activePhase);
+                if (!phase) return;
+
+                const taskTitle = document.getElementById('task-phase-title');
+                const taskTag = document.getElementById('task-phase-tag');
+                const container = document.getElementById('tasks-ledger-container');
+
+                taskTitle.innerText = phase.title + ' Checklist';
+                taskTag.innerText = `ACTIVE SELECTION: PHASE ${this.activePhase}`;
+                container.innerHTML = '';
+
+                phase.tasks.forEach(task => {
+                    const taskEl = document.createElement('div');
+                    taskEl.className = 'flex items-center space-x-3 p-3 rounded-lg bg-zinc-950/60 border border-zinc-900 hover:border-zinc-800 transition-all group';
+                    taskEl.innerHTML = `
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="appState.toggleTask(${this.activePhase}, '${task.id}')" class="w-4 h-4 rounded cursor-pointer accent-brand-500">
+                        <span class="text-sm flex-1 ${task.completed ? 'text-zinc-500 line-through' : 'text-zinc-300'} editable-field" contenteditable="true" onblur="appState.updateTaskName(${this.activePhase}, '${task.id}', this.innerText)">${task.name}</span>
+                        <button onclick="appState.deleteTask(${this.activePhase}, '${task.id}')" class="text-xs text-zinc-600 hover:text-accent-rose opacity-0 group-hover:opacity-100 transition-all">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    `;
+                    container.appendChild(taskEl);
+                });
+
+                const totalTasks = phase.tasks.length;
+                const completedTasks = phase.tasks.filter(t => t.completed).length;
+                document.getElementById('checked-fraction').innerText = `${completedTasks} / ${totalTasks} Tasks Completed`;
+            },
+
+            // Render arbitrage opportunities
+            renderArbitrage() {
+                const container = document.getElementById('arbitrage-container');
+                container.innerHTML = '';
+
+                const colorMap = { 'arb-1': 'teal', 'arb-2': 'violet', 'arb-3': 'rose' };
+
+                this.data.arbitrage.forEach(arb => {
+                    const color = colorMap[arb.id];
+                    const card = document.createElement('div');
+                    card.className = `glass-panel rounded-2xl p-6 space-y-4 border-l-4 border-l-accent-${color} relative overflow-hidden`;
+                    card.innerHTML = `
+                        <div class="absolute -right-12 -top-12 w-32 h-32 bg-accent-${color}/5 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-${color}/10 flex items-center justify-center text-accent-${color}">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white uppercase tracking-wider font-mono editable-field" contenteditable="true" onblur="appState.updateArbitrageTitle('${arb.id}', this.innerText)">${arb.title}</h4>
+                                <p class="text-[10px] text-zinc-500">Strategic Growth Vector</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-zinc-400 leading-relaxed editable-field" contenteditable="true" onblur="appState.updateArbitrageDesc('${arb.id}', this.innerText)">${arb.desc}</p>
+                        <div class="pt-2">
+                            <span class="text-[10px] font-mono font-semibold bg-accent-${color}/15 text-accent-${color} px-2 py-1 rounded-md editable-field" contenteditable="true" onblur="appState.updateArbitrageYield('${arb.id}', this.innerText)">Expected Yield: ${arb.yield}</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            },
+
+            // Set founder capacity
+            setFounderCapacity(founderId, capacity) {
+                const founder = this.data.founders.find(f => f.id === founderId);
+                if (founder) {
+                    founder.capacity = capacity;
+                    this.save();
+                }
+            },
+
+            // Update founder fields
+            updateFounderField(founderId, field, value) {
+                const founder = this.data.founders.find(f => f.id === founderId);
+                if (founder) {
+                    founder[field] = value;
+                    this.save();
+                }
+            },
+
+            // Update founder tags
+            updateFounderTag(founderId, tagIndex, value) {
+                const founder = this.data.founders.find(f => f.id === founderId);
+                if (founder && founder.tags[tagIndex]) {
+                    founder.tags[tagIndex] = value;
+                    this.save();
+                }
+            },
+
+            // Select phase
+            selectPhase(phaseId) {
+                this.activePhase = phaseId;
+                this.renderPhases();
+                this.renderTasks();
+            },
+
+            // Update phase title
+            updatePhaseTitle(phaseId, title) {
+                const phase = this.data.phases.find(p => p.id === phaseId);
+                if (phase) {
+                    phase.title = title;
+                    this.save();
+                }
+            },
+
+            // Toggle task completion
+            toggleTask(phaseId, taskId) {
+                const phase = this.data.phases.find(p => p.id === phaseId);
+                if (phase) {
+                    const task = phase.tasks.find(t => t.id === taskId);
+                    if (task) {
+                        task.completed = !task.completed;
+                        this.save();
+                    }
+                }
+            },
+
+            // Update task name
+            updateTaskName(phaseId, taskId, name) {
+                const phase = this.data.phases.find(p => p.id === phaseId);
+                if (phase) {
+                    const task = phase.tasks.find(t => t.id === taskId);
+                    if (task) {
+                        task.name = name;
+                        this.save();
+                    }
+                }
+            },
+
+            // Delete task
+            deleteTask(phaseId, taskId) {
+                const phase = this.data.phases.find(p => p.id === phaseId);
+                if (phase) {
+                    phase.tasks = phase.tasks.filter(t => t.id !== taskId);
+                    this.save();
+                }
+            },
+
+            // Create new task
+            createNewTask() {
+                const phase = this.data.phases.find(p => p.id === this.activePhase);
+                if (phase) {
+                    const newId = 'task-' + Date.now();
+                    phase.tasks.push({ id: newId, name: 'New task...', completed: false });
+                    this.save();
+                }
+            },
+
+            // Update arbitrage title
+            updateArbitrageTitle(arbId, title) {
+                const arb = this.data.arbitrage.find(a => a.id === arbId);
+                if (arb) {
+                    arb.title = title;
+                    this.save();
+                }
+            },
+
+            // Update arbitrage description
+            updateArbitrageDesc(arbId, desc) {
+                const arb = this.data.arbitrage.find(a => a.id === arbId);
+                if (arb) {
+                    arb.desc = desc;
+                    this.save();
+                }
+            },
+
+            // Update arbitrage yield
+            updateArbitrageYield(arbId, yieldText) {
+                const arb = this.data.arbitrage.find(a => a.id === arbId);
+                if (arb) {
+                    arb.yield = yieldText.replace('Expected Yield: ', '');
+                    this.save();
+                }
+            },
+
+            // Set global filter
+            setGlobalFilter(filter) {
+                this.currentFilter = filter;
+                document.querySelectorAll('[id^="filter-btn-"]').forEach(btn => {
+                    btn.classList.remove('bg-brand-600', 'text-white');
+                    btn.classList.add('text-zinc-400', 'hover:text-white');
+                });
+                document.getElementById(`filter-btn-${filter}`).classList.remove('text-zinc-400', 'hover:text-white');
+                document.getElementById(`filter-btn-${filter}`).classList.add('bg-brand-600', 'text-white');
+                this.renderFounders();
+            },
+
+            // Export to Notion (placeholder)
+            exportToNotion() {
+                alert('Export to Notion feature - integrates with Notion API. Prepare data: ' + JSON.stringify(this.data).substring(0, 100) + '...');
+            },
+
+            // Attach event listeners
+            attachEventListeners() {
+                // MRR target editable
+                const mrrTarget = document.getElementById('mrr-target-value');
+                if (mrrTarget) {
+                    mrrTarget.onblur = () => {
+                        this.data.mrrTarget = mrrTarget.innerText;
+                        this.save();
+                    };
+                }
+            }
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => appState.init());
+    </script>
+
+</body>
+</html>
